@@ -11,3 +11,4 @@ You must provide your own API key in order to build the app. When you get it, ju
 ## Libraries
  * [ButterKnife](http://jakewharton.github.io/butterknife/) 
  * [Gson] (https://github.com/google/gson)
+ * [Picasso] (https://github.com/square/picasso)
