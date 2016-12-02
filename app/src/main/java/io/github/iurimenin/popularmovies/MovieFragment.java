@@ -1,6 +1,5 @@
 package io.github.iurimenin.popularmovies;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,16 +10,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.GridView;
 
-import java.util.ArrayList;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Iuri on 02/12/16.
  */
 public class MovieFragment extends Fragment {
+
+    @BindView(R.id.gridViewMovies) GridView mRridViewMovies;
 
     private ArrayAdapter<String> mForecastAdapter;
 
@@ -34,15 +35,10 @@ public class MovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        ButterKnife.bind(this, rootView);
 
-        mForecastAdapter = new ArrayAdapter<>(getActivity(),
-                R.layout.list_item_movie,
-                R.id.list_item_movie_textView,
-                new ArrayList<String>());
-
-        ListView listView = (ListView) rootView.findViewById(R.id.listViewMovies);
-        listView.setAdapter(mForecastAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mRridViewMovies.setAdapter(new ImageAdapter(this.getContext()));
+       /* mRridViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String forecast = mForecastAdapter.getItem(i);
@@ -50,7 +46,7 @@ public class MovieFragment extends Fragment {
                 intent.putExtra(Intent.EXTRA_TEXT, forecast);
                 startActivity(intent);
             }
-        });
+        });*/
         return rootView;
     }
 

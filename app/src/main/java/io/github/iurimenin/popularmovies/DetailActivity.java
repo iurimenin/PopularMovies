@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Iuri on 02/12/16.
  */
@@ -50,15 +53,16 @@ public class DetailActivity extends AppCompatActivity {
 
     public static class PlaceholderFragment extends Fragment {
 
+        @BindView(R.id.textViewMovie) TextView mTextViewMovie;
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-            String forecastText = (String) getActivity().getIntent().getExtras().get(Intent.EXTRA_TEXT);
-
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-            TextView textViewForecast = (TextView) rootView.findViewById(R.id.textViewMovie);
-            textViewForecast.setText(forecastText);
+            ButterKnife.bind(this, rootView);
+            String forecastText = (String) getActivity().getIntent().getExtras().get(Intent.EXTRA_TEXT);
+            mTextViewMovie.setText(forecastText);
 
             return rootView;
         }
