@@ -1,4 +1,4 @@
-package io.github.iurimenin.popularmovies;
+package io.github.iurimenin.popularmovies.activity;
 
 
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
+
+import io.github.iurimenin.popularmovies.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -67,4 +70,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Pre
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -1,10 +1,13 @@
-package io.github.iurimenin.popularmovies;
+package io.github.iurimenin.popularmovies.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import io.github.iurimenin.popularmovies.R;
+import io.github.iurimenin.popularmovies.fragments.MovieFragment;
 
 /**
  * Created by Iuri on 02/12/16.

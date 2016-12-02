@@ -1,4 +1,4 @@
-package io.github.iurimenin.popularmovies;
+package io.github.iurimenin.popularmovies.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

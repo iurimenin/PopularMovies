@@ -1,0 +1,10 @@
+<resources>
+    <string name="settings">Configurações</string>
+    <string name="app_name">Filmes Populares</string>
+    <string name="pref_sort_label">Ordenar por</string>
+    <string name="movie_detail">Detalhes do filme</string>
+    <string name="pref_sort_label_popular">Mais popular</string>
+    <string name="pref_sort_label_rated">Melhor avaliado</string>
+    <string name="vote_average">Pontuação média</string>
+    <string name="release_date">Data de lançamento</string>
+</resources>

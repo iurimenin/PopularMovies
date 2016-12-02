@@ -1,6 +1,8 @@
-package io.github.iurimenin.popularmovies;
+package io.github.iurimenin.popularmovies.fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,7 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.google.gson.Gson;
@@ -35,6 +37,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.iurimenin.popularmovies.BuildConfig;
+import io.github.iurimenin.popularmovies.activity.DetailActivity;
+import io.github.iurimenin.popularmovies.adapter.MovieAdapter;
+import io.github.iurimenin.popularmovies.valueobject.MovieVO;
+import io.github.iurimenin.popularmovies.R;
+import io.github.iurimenin.popularmovies.Utils;
 
 /**
  * Created by Iuri on 02/12/16.
@@ -43,7 +51,7 @@ public class MovieFragment extends Fragment {
 
     @BindView(R.id.gridViewMovies) GridView mRridViewMovies;
 
-    private ArrayAdapter<String> mForecastAdapter;
+    private MovieAdapter mMovieAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,16 +65,17 @@ public class MovieFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, rootView);
 
-        mRridViewMovies.setAdapter(new ImageAdapter(this.getContext()));
-       /* mRridViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mMovieAdapter = new MovieAdapter(getActivity(), new ArrayList<MovieVO>());
+        mRridViewMovies.setAdapter(mMovieAdapter);
+        mRridViewMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String forecast = mForecastAdapter.getItem(i);
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra(Intent.EXTRA_TEXT, forecast);
+                MovieVO movieVO = mMovieAdapter.getItem(i);
+                Intent intent = new Intent(MovieFragment.this.getActivity(), DetailActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, movieVO);
                 startActivity(intent);
             }
-        });*/
+        });
         return rootView;
     }
 
@@ -111,13 +120,10 @@ public class MovieFragment extends Fragment {
 
             try {
 
-                StringBuilder uri = new StringBuilder();
-                uri.append(Utils.MOVIES_URL);
-                uri.append(Utils.SORT_BY);
-                uri.append(params[0]);
-                uri.append(Utils.ASC);
-                uri.append(Utils.API_KEY);
-                uri.append("67fccec8dbc33668cc830348ade95787");
+                Uri uri = Uri.parse(Utils.MOVIES_API_URL).buildUpon()
+                        .appendPath(params[0])
+                        .appendQueryParameter(Utils.API_KEY, Utils.MY_MOVIE_BD_API_KEY)
+                        .build();
 
                 URL url = new URL(uri.toString());
 
@@ -169,12 +175,6 @@ public class MovieFragment extends Fragment {
 
         private ArrayList<MovieVO> getMoviesDataFromJson(String json) throws JSONException {
 
-            // These are the names of the JSON objects that need to be extracted.
-            final String TITLE = "original_title";
-            final String RELEASE_DATE= "release_date";
-            final String POSTER = "poster_path";
-            final String VOTE_AVARAGE = "vote_average";
-            final String SYNOPSIS = "overview";
             final String RESULT = "results";
 
             JSONObject moviesJson = new JSONObject(json);
@@ -191,8 +191,8 @@ public class MovieFragment extends Fragment {
 
             if (result == null)
                 return;
-           /* mForecastAdapter.clear();
-            mForecastAdapter.addAll(result); TODO*/
+            mMovieAdapter.clear();
+            mMovieAdapter.addAll(result);
         }
     }
 }

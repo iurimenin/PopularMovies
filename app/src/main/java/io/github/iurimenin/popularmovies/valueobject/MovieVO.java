@@ -1,4 +1,4 @@
-package io.github.iurimenin.popularmovies;
+package io.github.iurimenin.popularmovies.valueobject;
 
 import java.io.Serializable;
 
