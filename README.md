@@ -2,6 +2,12 @@
 
 First project from Udacity Android Nanodegree
 
-Used libraries:
- * http://jakewharton.github.io/butterknife/
- * https://github.com/google/gson
+This app uses [The Movie Database](https://www.themoviedb.org/documentation/api) API to retrieve movies.
+You must provide your own API key in order to build the app. When you get it, just paste it to:
+    ```
+    app/build.gradle
+    ```
+    
+## Libraries
+ * [ButterKnife](http://jakewharton.github.io/butterknife/) 
+ * [Gson] (https://github.com/google/gson)
