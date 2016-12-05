@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:scaleType="fitStart"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:scaleType="fitStart"
-        android:id="@+id/movie_image"/>
-</FrameLayout>
+    android:layout_height="wrap_content"
+    android:id="@+id/movie_image"
+    android:orientation="vertical"
+    android:adjustViewBounds="true"/>

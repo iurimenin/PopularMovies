@@ -10,4 +10,7 @@
     <string name="pref_sort_label_popular">Most popular</string>
     <string name="vote_average">Vote average</string>
     <string name="release_date">Release date</string>
+    <string name="no_internet_connection">No internet connection found.</string>
+    <string name="retry">Retry</string>
+    <string name="refresh">Refresh</string>
 </resources>

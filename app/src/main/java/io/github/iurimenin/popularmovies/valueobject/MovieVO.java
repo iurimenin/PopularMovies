@@ -1,12 +1,13 @@
 package io.github.iurimenin.popularmovies.valueobject;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Iuri on 02/12/16.
  */
 
-public class MovieVO implements Serializable {
+public class MovieVO implements Parcelable {
 
     private String original_title;
     private String release_date;
@@ -52,5 +53,44 @@ public class MovieVO implements Serializable {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+     /*
+     * Parcelable particular
+     */
+
+    public static final String PARCELABLE_KEY = "movie";
+
+    public static final Parcelable.Creator<MovieVO> CREATOR
+            = new Parcelable.Creator<MovieVO>() {
+        public MovieVO createFromParcel(Parcel in) {
+            return new MovieVO(in);
+        }
+
+        public MovieVO[] newArray(int size) {
+            return new MovieVO[size];
+        }
+    };
+
+    private MovieVO(Parcel in) {
+        original_title = in.readString();
+        poster_path  = in.readString();
+        overview = in.readString();
+        vote_average = in.readString();
+        release_date = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(original_title);
+        dest.writeString(poster_path);
+        dest.writeString(overview);
+        dest.writeString(vote_average);
+        dest.writeString(release_date);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }

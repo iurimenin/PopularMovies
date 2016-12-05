@@ -26,30 +26,6 @@ public class MovieAdapter extends ArrayAdapter<MovieVO> {
 
     @BindView(R.id.movie_image) ImageView mMovieImage;
 
-    public MovieAdapter(Context context, int resource) {
-        super(context, resource);
-    }
-
-    public MovieAdapter(Context context, int resource, int textViewResourceId) {
-        super(context, resource, textViewResourceId);
-    }
-
-    public MovieAdapter(Context context, int resource, MovieVO[] objects) {
-        super(context, resource, objects);
-    }
-
-    public MovieAdapter(Context context, int resource, int textViewResourceId, MovieVO[] objects) {
-        super(context, resource, textViewResourceId, objects);
-    }
-
-    public MovieAdapter(Context context, int resource, List<MovieVO> objects) {
-        super(context, resource, objects);
-    }
-
-    public MovieAdapter(Context context, int resource, int textViewResourceId, List<MovieVO> objects) {
-        super(context, resource, textViewResourceId, objects);
-    }
-
     public MovieAdapter(Context context, List<MovieVO> movieVOs) {
         super(context, 0, movieVOs);
     }

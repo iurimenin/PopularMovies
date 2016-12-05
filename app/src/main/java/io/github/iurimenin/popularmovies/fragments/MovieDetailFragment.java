@@ -1,6 +1,5 @@
 package io.github.iurimenin.popularmovies.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,7 +35,7 @@ public class MovieDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, rootView);
 
-        MovieVO movieVO = (MovieVO) getActivity().getIntent().getExtras().get(Intent.EXTRA_TEXT);
+        MovieVO movieVO = getActivity().getIntent().getExtras().getParcelable(MovieVO.PARCELABLE_KEY);
 
         mTextViewTittle.setText(movieVO.getOriginal_title());
         Picasso.with(getContext()).load(Utils.getImageUrl780(movieVO.getPoster_path())).into(mMoviePoster);
