@@ -17,7 +17,7 @@ public class Utils {
 
     public static final String API_KEY = "api_key";
     public static final String MOVIES_API_URL = "http://api.themoviedb.org/3/movie/";
-    public static final String MY_MOVIE_BD_API_KEY = "67fccec8dbc33668cc830348ade95787";
+    public static final String MY_MOVIE_BD_API_KEY = "YourAPIKeyHere";
 
     private static final String IMAGES_URL_500 = "/w500";
     private static final String IMAGES_URL_185 = "/w185";
