@@ -3,17 +3,30 @@ package io.github.iurimenin.popularmovies.valueobject;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Iuri on 02/12/16.
  */
 
 public class MovieVO implements Parcelable {
 
+    private String id;
     private String original_title;
     private String release_date;
     private String poster_path;
     private String vote_average;
     private String overview;
+    private List<VideoVO> videos;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getOriginal_title() {
         return original_title;
@@ -55,7 +68,15 @@ public class MovieVO implements Parcelable {
         this.overview = overview;
     }
 
-     /*
+    public List<VideoVO> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<VideoVO> videos) {
+        this.videos = videos;
+    }
+
+    /*
      * Parcelable particular
      */
 
@@ -73,20 +94,25 @@ public class MovieVO implements Parcelable {
     };
 
     private MovieVO(Parcel in) {
+        id = in.readString();
         original_title = in.readString();
         poster_path  = in.readString();
         overview = in.readString();
         vote_average = in.readString();
         release_date = in.readString();
+        videos = new ArrayList<>();
+        in.readTypedList(videos, VideoVO.CREATOR);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
         dest.writeString(original_title);
         dest.writeString(poster_path);
         dest.writeString(overview);
         dest.writeString(vote_average);
         dest.writeString(release_date);
+        dest.writeList(videos);
     }
 
     @Override

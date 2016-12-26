@@ -13,4 +13,6 @@
     <string name="no_internet_connection">No internet connection found.</string>
     <string name="retry">Retry</string>
     <string name="refresh">Refresh</string>
+    <string name="trailers">Trailers:</string>
+    <string name="trailer">Trailer %1$s</string>
 </resources>

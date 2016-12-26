@@ -104,7 +104,7 @@ public class MovieFragment extends Fragment implements AsyncTaskDelegate {
             String sortBy = prefs.getString(getString(R.string.pref_sort_key),
                     getString(R.string.pref_sort_popular));
 
-            ListMoviesTask fetchWeatherTask = new ListMoviesTask(getContext(), this);
+            ListMoviesTask fetchWeatherTask = new ListMoviesTask(this);
             fetchWeatherTask.execute(sortBy);
         } else {
             //Se não há	conexão disponível, exibe a mensagem

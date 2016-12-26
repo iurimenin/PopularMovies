@@ -1,6 +1,5 @@
 package io.github.iurimenin.popularmovies.asynctask;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -36,7 +35,7 @@ public class ListMoviesTask extends AsyncTask<String, Void, ArrayList<MovieVO>> 
     private String json;
     private AsyncTaskDelegate delegate;
 
-    public ListMoviesTask(Context context, AsyncTaskDelegate responder){
+    public ListMoviesTask(AsyncTaskDelegate responder){
         this.delegate = responder;
     }
 
@@ -118,7 +117,7 @@ public class ListMoviesTask extends AsyncTask<String, Void, ArrayList<MovieVO>> 
     protected void onPostExecute(ArrayList<MovieVO> result) {
 
         super.onPostExecute(result);
-        if (delegate != null)
-            delegate.processFinish(result);
+
+        new ListMoviesVideosTask(result, delegate).execute();
     }
 }
