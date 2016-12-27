@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/video_image"
         android:orientation="vertical"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_play_black_24dp"
         android:adjustViewBounds="true"/>
 
     <TextView

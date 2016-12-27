@@ -33,8 +33,6 @@ public class VideoAdapter extends ArrayAdapter<VideoVO> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        VideoVO movieVO = getItem(position);
-
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).
                     inflate(R.layout.video_item, parent, false);

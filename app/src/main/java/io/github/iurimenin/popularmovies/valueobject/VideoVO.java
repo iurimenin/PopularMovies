@@ -46,6 +46,7 @@ public class VideoVO implements Parcelable {
     };
 
     private VideoVO(Parcel in) {
+        in.readString();
         id = in.readString();
         key = in.readString();
     }

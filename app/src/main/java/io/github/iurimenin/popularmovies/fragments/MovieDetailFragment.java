@@ -1,5 +1,8 @@
 package io.github.iurimenin.popularmovies.fragments;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -55,12 +58,21 @@ public class MovieDetailFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 VideoVO videoVO = mVideoAdapter.getItem(i);
-//                Intent intent = new Intent(MovieFragment.this.getActivity(), DetailActivity.class);
-//                intent.putExtra(MovieVO.PARCELABLE_KEY, movieVO);
-//                startActivity(intent);
+                watchYoutubeVideo(videoVO.getKey());
             }
         });
 
         return rootView;
+    }
+
+    public void watchYoutubeVideo(String id){
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=" + id));
+        try {
+            startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            startActivity(webIntent);
+        }
     }
 }
