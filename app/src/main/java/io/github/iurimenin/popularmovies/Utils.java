@@ -1,8 +1,10 @@
 package io.github.iurimenin.popularmovies;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 
 import java.text.ParseException;
@@ -18,12 +20,12 @@ public class Utils {
     public static final String API_KEY = "api_key";
     public static final String MOVIES_API_URL = "http://api.themoviedb.org/3/movie/";
     public static final String MY_MOVIE_BD_API_KEY = "67fccec8dbc33668cc830348ade95787";
+    public static final String VIDEOS = "videos";
+    public static final String REVIEWS = "reviews";
 
     private static final String IMAGES_URL_500 = "/w500";
     private static final String IMAGES_URL_185 = "/w185";
     private static final String IMAGES_URL = "https://image.tmdb.org/t/p/";
-    public static final String VIDEOS = "videos";
-    private static final String REVIEWS = "reviews";
 
     public static String getImageUrl780(String poster_path) {
 
@@ -52,5 +54,12 @@ public class Utils {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public static String getSortPreference(Context context) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(context.getString(R.string.pref_sort_key),
+                context.getString(R.string.pref_sort_popular));
     }
 }

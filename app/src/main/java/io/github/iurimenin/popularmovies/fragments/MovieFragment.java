@@ -1,9 +1,7 @@
 package io.github.iurimenin.popularmovies.fragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -99,13 +97,8 @@ public class MovieFragment extends Fragment implements AsyncTaskDelegate {
     private void updateMovies () {
 
         if (Utils.isNetworkConnected(getContext())) {
-
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String sortBy = prefs.getString(getString(R.string.pref_sort_key),
-                    getString(R.string.pref_sort_popular));
-
             ListMoviesTask fetchWeatherTask = new ListMoviesTask(this);
-            fetchWeatherTask.execute(sortBy);
+            fetchWeatherTask.execute(Utils.getSortPreference(getActivity()));
         } else {
             //Se não há	conexão disponível, exibe a mensagem
             View view = getActivity().findViewById(R.id.activity_main);

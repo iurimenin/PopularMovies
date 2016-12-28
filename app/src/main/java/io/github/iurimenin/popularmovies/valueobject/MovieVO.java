@@ -19,6 +19,7 @@ public class MovieVO implements Parcelable {
     private String vote_average;
     private String overview;
     private List<VideoVO> videos;
+    private List<ReviewVO> reviews;
 
     public String getId() {
         return id;
@@ -76,6 +77,14 @@ public class MovieVO implements Parcelable {
         this.videos = videos;
     }
 
+    public List<ReviewVO> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewVO> reviews) {
+        this.reviews = reviews;
+    }
+
     /*
      * Parcelable particular
      */
@@ -102,6 +111,8 @@ public class MovieVO implements Parcelable {
         release_date = in.readString();
         videos = new ArrayList<>();
         in.readTypedList(videos, VideoVO.CREATOR);
+        reviews = new ArrayList<>();
+        in.readTypedList(reviews, ReviewVO.CREATOR);
     }
 
     @Override
@@ -113,6 +124,7 @@ public class MovieVO implements Parcelable {
         dest.writeString(vote_average);
         dest.writeString(release_date);
         dest.writeList(videos);
+        dest.writeList(reviews);
     }
 
     @Override
