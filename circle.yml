@@ -5,7 +5,7 @@
 
 general:
     artifacts:
-        - /home/ubuntu/your-app-name/app/build/outputs/apk/
+        - /home/ubuntu/PopularMovies/app/build/outputs/apk/
 
 machine:
     environment:
@@ -28,6 +28,6 @@ test:
     override:
         - (./gradlew assemble):
             timeout: 360
-        - ./gradlew assembleRelease
-        - cp -r PopularMovies/build/outputs $CIRCLE_ARTIFACTS
+        #- ./gradlew assembleRelease
+        #- cp -r github/iurimenin/PopularMovies/build/outputs $CIRCLE_ARTIFACTS
 
