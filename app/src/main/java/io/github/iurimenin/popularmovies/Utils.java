@@ -19,14 +19,13 @@ public class Utils {
 
     public static final String API_KEY = "api_key";
     public static final String MOVIES_API_URL = "http://api.themoviedb.org/3/movie/";
-    public static final String MY_MOVIE_BD_API_KEY = "67fccec8dbc33668cc830348ade95787";
+    public static final String MY_MOVIE_BD_API_KEY = "MY_API_KEY";
     public static final String VIDEOS = "videos";
     public static final String REVIEWS = "reviews";
 
     private static final String IMAGES_URL_500 = "/w500";
     private static final String IMAGES_URL_185 = "/w185";
     private static final String IMAGES_URL = "https://image.tmdb.org/t/p/";
-    private static final String FAVORITE = "favorite-";
 
     public static String getImageUrl780(String poster_path) {
 
@@ -66,15 +65,13 @@ public class Utils {
 
     public static boolean isFavoriteMovie(Context context, String id) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String composedId = FAVORITE + id;
-        return prefs.getBoolean(composedId, false);
+        return prefs.getBoolean(id, false);
     }
 
     public static void markAsFavorite(Context context, String id, boolean b) {
-        String composedId = FAVORITE + id;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(composedId, b);
+        editor.putBoolean(id, b);
         editor.apply();
     }
 }
