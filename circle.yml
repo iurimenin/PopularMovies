@@ -29,5 +29,5 @@ test:
         - (./gradlew assemble):
             timeout: 360
         - ./gradlew assembleRelease
-        - cp -r project-name/build/outputs $CIRCLE_ARTIFACTS
+        - cp -r PopularMovies/build/outputs $CIRCLE_ARTIFACTS
 
