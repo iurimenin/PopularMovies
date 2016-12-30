@@ -18,4 +18,7 @@
     <string name="refresh">Refresh</string>
     <string name="trailers">Trailers:</string>
     <string name="trailer">Trailer %1$s</string>
+    <string name="favorite">Favorito</string>
+    <string name="favorited">Marked as favorite</string>
+    <string name="removed_favorite">Removed from favorite</string>
 </resources>

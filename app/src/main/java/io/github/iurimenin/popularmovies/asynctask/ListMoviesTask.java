@@ -1,5 +1,6 @@
 package io.github.iurimenin.popularmovies.asynctask;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.iurimenin.popularmovies.R;
 import io.github.iurimenin.popularmovies.Utils;
 import io.github.iurimenin.popularmovies.interfaces.AsyncTaskDelegate;
 import io.github.iurimenin.popularmovies.valueobject.MovieVO;
@@ -34,24 +36,39 @@ public class ListMoviesTask extends AsyncTask<String, Void, ArrayList<MovieVO>> 
 
     private final String LOG_TAG = ListMoviesTask.class.getSimpleName();
     private final String RESULT = "results";
+    private Context context;
 
     private String json;
     private AsyncTaskDelegate delegate;
-
-    private HttpURLConnection urlConnection = null;
     private BufferedReader reader = null;
+    private HttpURLConnection urlConnection = null;
 
-    public ListMoviesTask(AsyncTaskDelegate responder){
+    public ListMoviesTask(AsyncTaskDelegate responder, Context context){
+        this.context = context;
         this.delegate = responder;
     }
 
     @Override
     protected ArrayList<MovieVO> doInBackground(String... params) {
 
+        String sortBy = params[0];
+        ArrayList<MovieVO> movieVOs = null;
+
+        // if we are going to list favorites, list from Realm
+        if (context.getString(R.string.pref_sort_favorite).equals(sortBy)){
+            movieVOs = getFavorites();
+        } else {
+            movieVOs = getMoviesFromApi(sortBy);
+        }
+
+        return movieVOs;
+    }
+
+    private ArrayList<MovieVO> getMoviesFromApi(String sortBy) {
         try {
 
             Uri uri = Uri.parse(Utils.MOVIES_API_URL).buildUpon()
-                    .appendPath(params[0])
+                    .appendPath(sortBy)
                     .appendQueryParameter(Utils.API_KEY, Utils.MY_MOVIE_BD_API_KEY)
                     .build();
 
@@ -75,10 +92,18 @@ public class ListMoviesTask extends AsyncTask<String, Void, ArrayList<MovieVO>> 
                     return null;
                 }
                 json = buffer.toString();
+
+                ArrayList<MovieVO> movieVOs = getMoviesDataFromJson(json);
+                this.getYouTubeKeyForMovie(movieVOs);
+                this.getReviewsForMovie(movieVOs);
+                return movieVOs;
             }
 
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
+            return null;
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
             return null;
         } finally {
             if (urlConnection != null) {
@@ -91,16 +116,6 @@ public class ListMoviesTask extends AsyncTask<String, Void, ArrayList<MovieVO>> 
                     Log.e(LOG_TAG, "Error closing stream", e);
                 }
             }
-        }
-
-        try {
-            ArrayList<MovieVO> movieVOs = getMoviesDataFromJson(json);
-            this.getYouTubeKeyForMovie(movieVOs);
-            this.getReviewsForMovie(movieVOs);
-            return movieVOs;
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
         }
 
         return null;
@@ -117,56 +132,47 @@ public class ListMoviesTask extends AsyncTask<String, Void, ArrayList<MovieVO>> 
         return moviesVO;
     }
 
-    private void getYouTubeKeyForMovie (ArrayList<MovieVO> movieVOList){
+    private void getYouTubeKeyForMovie (ArrayList<MovieVO> movieVOList) throws JSONException, IOException {
         for (MovieVO vo: movieVOList) {
 
-            String json;
-            try {
+            Uri uri = Uri.parse(Utils.MOVIES_API_URL).buildUpon()
+                    .appendPath(vo.getId())
+                    .appendPath(Utils.VIDEOS)
+                    .appendQueryParameter(Utils.API_KEY, Utils.MY_MOVIE_BD_API_KEY)
+                    .build();
 
-                Uri uri = Uri.parse(Utils.MOVIES_API_URL).buildUpon()
-                        .appendPath(vo.getId())
-                        .appendPath(Utils.VIDEOS)
-                        .appendQueryParameter(Utils.API_KEY, Utils.MY_MOVIE_BD_API_KEY)
-                        .build();
+            URL url = new URL(uri.toString());
 
-                URL url = new URL(uri.toString());
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
+            InputStream inputStream = urlConnection.getInputStream();
+            StringBuffer buffer = new StringBuffer();
+            if (inputStream != null) {
+                reader = new BufferedReader(new InputStreamReader(inputStream));
 
-                InputStream inputStream = urlConnection.getInputStream();
-                StringBuffer buffer = new StringBuffer();
-                if (inputStream != null) {
-                    reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        buffer.append(line + "\n");
-                    }
-
-                    if (buffer.length() == 0) {
-                        return;
-                    }
-                    json = buffer.toString();
-
-                    vo.setVideos(getVideoDataFromJson(json));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line + "\n");
                 }
 
-            } catch (IOException e) {
-                Log.e(LOG_TAG, "Error ", e);
-            } catch (JSONException e) {
-                Log.e(LOG_TAG, "Error ", e);
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
+                if (buffer.length() == 0) {
+                    return;
                 }
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (final IOException e) {
-                        Log.e(LOG_TAG, "Error closing stream", e);
-                    }
+                json = buffer.toString();
+
+                vo.setVideos(getVideoDataFromJson(json));
+            }
+
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (final IOException e) {
+                    Log.e(LOG_TAG, "Error closing stream", e);
                 }
             }
         }
@@ -187,7 +193,6 @@ public class ListMoviesTask extends AsyncTask<String, Void, ArrayList<MovieVO>> 
 
         for (MovieVO vo: movieVOs) {
 
-            String json;
             try {
 
                 Uri uri = Uri.parse(Utils.MOVIES_API_URL).buildUpon()
@@ -256,5 +261,22 @@ public class ListMoviesTask extends AsyncTask<String, Void, ArrayList<MovieVO>> 
         super.onPostExecute(result);
         if (delegate != null)
             delegate.processFinish(result);
+    }
+
+    private ArrayList<MovieVO> getFavorites() {
+
+        ArrayList<MovieVO> movieVOs = new ArrayList<>();
+        movieVOs.addAll(getMoviesFromApi(context.getString(R.string.pref_sort_rated)));
+        movieVOs.addAll(getMoviesFromApi(context.getString(R.string.pref_sort_popular)));
+
+        ArrayList<MovieVO> favorites = new ArrayList<>();
+        for (MovieVO vo: movieVOs) {
+
+            if (Utils.isFavoriteMovie(context, vo.getId()))
+                favorites.add(vo);
+
+        }
+
+        return favorites;
     }
 }

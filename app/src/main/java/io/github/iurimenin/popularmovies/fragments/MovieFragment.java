@@ -97,7 +97,7 @@ public class MovieFragment extends Fragment implements AsyncTaskDelegate {
     private void updateMovies () {
 
         if (Utils.isNetworkConnected(getContext())) {
-            ListMoviesTask fetchWeatherTask = new ListMoviesTask(this);
+            ListMoviesTask fetchWeatherTask = new ListMoviesTask(this, this.getActivity());
             fetchWeatherTask.execute(Utils.getSortPreference(getActivity()));
         } else {
             //Se não há	conexão disponível, exibe a mensagem

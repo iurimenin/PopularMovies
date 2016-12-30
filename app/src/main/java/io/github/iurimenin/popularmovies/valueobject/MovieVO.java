@@ -20,6 +20,7 @@ public class MovieVO implements Parcelable {
     private String overview;
     private List<VideoVO> videos;
     private List<ReviewVO> reviews;
+    private boolean favorite;
 
     public String getId() {
         return id;
@@ -85,6 +86,14 @@ public class MovieVO implements Parcelable {
         this.reviews = reviews;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     /*
      * Parcelable particular
      */
@@ -113,6 +122,7 @@ public class MovieVO implements Parcelable {
         in.readTypedList(videos, VideoVO.CREATOR);
         reviews = new ArrayList<>();
         in.readTypedList(reviews, ReviewVO.CREATOR);
+        favorite = in.readInt() == 1;
     }
 
     @Override
@@ -125,6 +135,7 @@ public class MovieVO implements Parcelable {
         dest.writeString(release_date);
         dest.writeList(videos);
         dest.writeList(reviews);
+        dest.writeInt(favorite ? 1 : 0);
     }
 
     @Override
