@@ -13,4 +13,8 @@
     <string name="favorite">Favorito</string>
     <string name="favorited">Adicionado aos favoritos</string>
     <string name="removed_favorite">Removido dos favoritos</string>
+    <string name="refresh">Refresh</string>
+    <string name="reviews">Reviews</string>
+    <string name="trailers">Trailers:</string>
+    <string name="trailer">Trailer %1$s</string>
 </resources>
