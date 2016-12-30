@@ -64,6 +64,7 @@ public class ReviewVO implements Parcelable {
     };
 
     private ReviewVO(Parcel in) {
+        in.readString();
         id = in.readString();
         author = in.readString();
         content  = in.readString();

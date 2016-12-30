@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 import io.github.iurimenin.popularmovies.R;
 import io.github.iurimenin.popularmovies.Utils;
 import io.github.iurimenin.popularmovies.activity.SettingsActivity;
+import io.github.iurimenin.popularmovies.adapter.ReviewAdapter;
 import io.github.iurimenin.popularmovies.adapter.VideoAdapter;
 import io.github.iurimenin.popularmovies.valueobject.MovieVO;
 import io.github.iurimenin.popularmovies.valueobject.VideoVO;
@@ -35,6 +37,7 @@ import io.github.iurimenin.popularmovies.valueobject.VideoVO;
 public class MovieDetailFragment extends Fragment {
 
     @BindView(R.id.text_view_tittle) TextView mTextViewTittle;
+    @BindView(R.id.list_view_reviews) ListView mListViewReviews;
     @BindView(R.id.text_view_synopsis) TextView mTextViewSynopsis;
     @BindView(R.id.list_view_trailers) ListView mListViewTrailers;
     @BindView(R.id.image_view_movie_poster) ImageView mMoviePoster;
@@ -43,6 +46,7 @@ public class MovieDetailFragment extends Fragment {
 
     private MovieVO movieVO;
     private VideoAdapter mVideoAdapter;
+    private ReviewAdapter mReviewAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +78,10 @@ public class MovieDetailFragment extends Fragment {
             }
         });
 
+        mReviewAdapter = new ReviewAdapter(getActivity(), movieVO.getReviews());
+        mListViewReviews.setAdapter(mReviewAdapter);
+
+        setListViewHeightBasedOnChildren(mListViewTrailers);
         return rootView;
     }
 
@@ -120,5 +128,29 @@ public class MovieDetailFragment extends Fragment {
         } catch (ActivityNotFoundException ex) {
             startActivity(webIntent);
         }
+    }
+
+    /**** Method for Setting the Height of the ListView dynamically.
+     **** Hack to fix the issue of not showing all the items of the ListView
+     **** when placed inside a ScrollView  ****/
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 }
