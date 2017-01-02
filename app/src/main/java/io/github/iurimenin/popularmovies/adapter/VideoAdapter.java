@@ -22,8 +22,8 @@ import io.github.iurimenin.popularmovies.valueobject.VideoVO;
 
 public class VideoAdapter extends ArrayAdapter<VideoVO> {
 
-    @BindView(R.id.video_text) TextView mVideoText;
-    @BindView(R.id.video_image) ImageView mVideoImage;
+    @BindView(R.id.video_text) protected TextView mVideoText;
+    @BindView(R.id.video_image) protected ImageView mVideoImage;
 
     public VideoAdapter(Context context, List<VideoVO> movieVOs) {
         super(context, 0, movieVOs);

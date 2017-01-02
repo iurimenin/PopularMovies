@@ -24,7 +24,7 @@ import io.github.iurimenin.popularmovies.Utils;
 
 public class MovieAdapter extends ArrayAdapter<MovieVO> {
 
-    @BindView(R.id.movie_image) ImageView mMovieImage;
+    @BindView(R.id.movie_image) protected ImageView mMovieImage;
 
     public MovieAdapter(Context context, List<MovieVO> movieVOs) {
         super(context, 0, movieVOs);

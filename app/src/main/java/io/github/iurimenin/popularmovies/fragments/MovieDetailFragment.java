@@ -36,13 +36,13 @@ import io.github.iurimenin.popularmovies.valueobject.VideoVO;
  */
 public class MovieDetailFragment extends Fragment {
 
-    @BindView(R.id.text_view_tittle) TextView mTextViewTittle;
-    @BindView(R.id.list_view_reviews) ListView mListViewReviews;
-    @BindView(R.id.text_view_synopsis) TextView mTextViewSynopsis;
-    @BindView(R.id.list_view_trailers) ListView mListViewTrailers;
-    @BindView(R.id.image_view_movie_poster) ImageView mMoviePoster;
-    @BindView(R.id.text_view_release_date) TextView mTextViewReleaseDate;
-    @BindView(R.id.text_view_vote_avarage) TextView mTextViewVoteAvarage;
+    @BindView(R.id.text_view_tittle) protected TextView mTextViewTittle;
+    @BindView(R.id.list_view_reviews) protected ListView mListViewReviews;
+    @BindView(R.id.text_view_synopsis) protected TextView mTextViewSynopsis;
+    @BindView(R.id.list_view_trailers) protected ListView mListViewTrailers;
+    @BindView(R.id.image_view_movie_poster) protected ImageView mMoviePoster;
+    @BindView(R.id.text_view_release_date) protected TextView mTextViewReleaseDate;
+    @BindView(R.id.text_view_vote_avarage) protected TextView mTextViewVoteAvarage;
 
     private MovieVO movieVO;
     private VideoAdapter mVideoAdapter;

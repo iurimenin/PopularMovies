@@ -34,7 +34,7 @@ import io.github.iurimenin.popularmovies.valueobject.MovieVO;
  */
 public class MovieFragment extends Fragment implements AsyncTaskDelegate {
 
-    @BindView(R.id.gridViewMovies) GridView mRridViewMovies;
+    @BindView(R.id.gridViewMovies) protected GridView mRridViewMovies;
 
     private MovieAdapter mMovieAdapter;
 

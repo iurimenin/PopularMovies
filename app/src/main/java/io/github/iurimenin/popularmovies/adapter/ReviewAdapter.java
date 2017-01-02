@@ -21,8 +21,8 @@ import io.github.iurimenin.popularmovies.valueobject.ReviewVO;
 
 public class ReviewAdapter extends ArrayAdapter<ReviewVO> {
 
-    @BindView(R.id.review_author) TextView mReviewAuthor;
-    @BindView(R.id.review_content) TextView mReviewContent;
+    @BindView(R.id.review_author) protected TextView mReviewAuthor;
+    @BindView(R.id.review_content) protected TextView mReviewContent;
 
     public ReviewAdapter(Context context,  List<ReviewVO> reviews) {
         super(context, 0, reviews);
