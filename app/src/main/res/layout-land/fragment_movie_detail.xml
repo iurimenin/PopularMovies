@@ -14,14 +14,8 @@
             android:layout_height="match_parent">
 
             <TextView
+                style="@style/title_text"
                 android:id="@+id/text_view_tittle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
-                android:fontFamily="cursive"
-                android:textColor="@android:color/white"
-                android:textSize="32dp"
-                android:textAlignment="center"
                 android:text="@string/app_name"/>
 
             <LinearLayout
