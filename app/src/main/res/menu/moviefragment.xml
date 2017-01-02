@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.mainactivity">
     <item android:id="@+id/action_settings"
         android:title="@string/settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+        android:orderincategory="100"
+        app:showasaction="never" />
     <item android:id="@+id/action_refresh"
         android:title="@string/refresh"
         android:icon="@drawable/ic_refresh_white_24dp"
-        android:orderInCategory="1"
-        app:showAsAction="ifRoom" />
+        android:orderincategory="1"
+        app:showasaction="ifroom" />
 </menu>
