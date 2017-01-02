@@ -1,4 +1,4 @@
-# PopularMovies
+# PopularMovies [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb9aa59d05c544cda23f535f6fbaab3b)](https://www.codacy.com/app/iurimenin/PopularMovies?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iurimenin/PopularMovies&amp;utm_campaign=Badge_Grade)
 
 First project made for the Udacity Android Nanodegree
 
