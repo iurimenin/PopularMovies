@@ -9,6 +9,8 @@ import android.os.Parcelable;
 
 public class ReviewVO implements Parcelable {
 
+    public static final String PARCELABLE_KEY = "review";
+
     private String id;
     private String author;
     private String content;
@@ -49,8 +51,6 @@ public class ReviewVO implements Parcelable {
     /*
      * Parcelable particular
      */
-
-    public static final String PARCELABLE_KEY = "review";
 
     public static final Parcelable.Creator<ReviewVO> CREATOR
             = new Parcelable.Creator<ReviewVO>() {

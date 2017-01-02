@@ -12,6 +12,8 @@ import java.util.List;
 
 public class MovieVO implements Parcelable {
 
+    public static final String PARCELABLE_KEY = "movie";
+
     private String id;
     private String original_title;
     private String release_date;
@@ -30,35 +32,35 @@ public class MovieVO implements Parcelable {
         this.id = id;
     }
 
-    public String getOriginal_title() {
+    public String getOriginalTitle() {
         return original_title;
     }
 
-    public void setOriginal_title(String original_title) {
+    public void setOriginalTitle(String original_title) {
         this.original_title = original_title;
     }
 
-    public String getRelease_date() {
+    public String getReleaseDate() {
         return release_date;
     }
 
-    public void setRelease_date(String release_date) {
+    public void setReleaseDate(String release_date) {
         this.release_date = release_date;
     }
 
-    public String getPoster_path() {
+    public String getPosterPath() {
         return poster_path;
     }
 
-    public void setPoster_path(String poster_path) {
+    public void setPosterPath(String poster_path) {
         this.poster_path = poster_path;
     }
 
-    public String getVote_average() {
+    public String getVoteAverage() {
         return vote_average;
     }
 
-    public void setVote_average(String vote_average) {
+    public void setVoteAverage(String vote_average) {
         this.vote_average = vote_average;
     }
 
@@ -97,9 +99,6 @@ public class MovieVO implements Parcelable {
     /*
      * Parcelable particular
      */
-
-    public static final String PARCELABLE_KEY = "movie";
-
     public static final Parcelable.Creator<MovieVO> CREATOR
             = new Parcelable.Creator<MovieVO>() {
         public MovieVO createFromParcel(Parcel in) {

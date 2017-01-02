@@ -46,7 +46,6 @@ public class MovieDetailFragment extends Fragment {
 
     private MovieVO movieVO;
     private VideoAdapter mVideoAdapter;
-    private ReviewAdapter mReviewAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,10 +62,10 @@ public class MovieDetailFragment extends Fragment {
 
         movieVO = getActivity().getIntent().getExtras().getParcelable(MovieVO.PARCELABLE_KEY);
 
-        mTextViewTittle.setText(movieVO.getOriginal_title());
-        Picasso.with(getContext()).load(Utils.getImageUrl780(movieVO.getPoster_path())).into(mMoviePoster);
-        mTextViewReleaseDate.setText(Utils.convertDate(this.getContext(), movieVO.getRelease_date()));
-        mTextViewVoteAvarage.setText(movieVO.getVote_average());
+        mTextViewTittle.setText(movieVO.getOriginalTitle());
+        Picasso.with(getContext()).load(Utils.getImageUrl780(movieVO.getPosterPath())).into(mMoviePoster);
+        mTextViewReleaseDate.setText(Utils.convertDate(this.getContext(), movieVO.getReleaseDate()));
+        mTextViewVoteAvarage.setText(movieVO.getVoteAverage());
         mTextViewSynopsis.setText(movieVO.getOverview());
         mVideoAdapter = new VideoAdapter(getActivity(), movieVO.getVideos());
         mListViewTrailers.setAdapter(mVideoAdapter);
@@ -78,7 +77,7 @@ public class MovieDetailFragment extends Fragment {
             }
         });
 
-        mReviewAdapter = new ReviewAdapter(getActivity(), movieVO.getReviews());
+        ReviewAdapter mReviewAdapter = new ReviewAdapter(getActivity(), movieVO.getReviews());
         mListViewReviews.setAdapter(mReviewAdapter);
 
         setListViewHeightBasedOnChildren(mListViewTrailers);

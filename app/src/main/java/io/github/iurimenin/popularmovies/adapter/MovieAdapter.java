@@ -43,7 +43,7 @@ public class MovieAdapter extends ArrayAdapter<MovieVO> {
 
         ButterKnife.bind(this, convertView);
 
-        Picasso.with(getContext()).load(Utils.getImageUrl185(movieVO.getPoster_path())).into(mMovieImage);
+        Picasso.with(getContext()).load(Utils.getImageUrl185(movieVO.getPosterPath())).into(mMovieImage);
 
         return convertView;
     }
