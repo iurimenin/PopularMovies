@@ -9,6 +9,8 @@ import android.os.Parcelable;
 
 public class VideoVO implements Parcelable {
 
+    public static final String PARCELABLE_KEY = "video";
+
     private String id;
     private String key;
 
@@ -31,8 +33,6 @@ public class VideoVO implements Parcelable {
      /*
      * Parcelable particular
      */
-
-    public static final String PARCELABLE_KEY = "video";
 
     public static final Parcelable.Creator<VideoVO> CREATOR
             = new Parcelable.Creator<VideoVO>() {
