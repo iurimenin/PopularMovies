@@ -1,5 +1,7 @@
 # PopularMovies [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb9aa59d05c544cda23f535f6fbaab3b)](https://www.codacy.com/app/iurimenin/PopularMovies?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iurimenin/PopularMovies&amp;utm_campaign=Badge_Grade)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb9aa59d05c544cda23f535f6fbaab3b)](https://www.codacy.com/app/iurimenin/PopularMovies?utm_source=github.com&utm_medium=referral&utm_content=iurimenin/PopularMovies&utm_campaign=badger)
+
 First project made for the Udacity Android Nanodegree
 
 This app uses [The Movie Database](https://www.themoviedb.org/documentation/api) API to retrieve movies.
